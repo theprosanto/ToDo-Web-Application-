@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+
 import { FaSearch } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -7,12 +9,38 @@ import { IoIosArrowForward } from "react-icons/io";
 
 const HomePage = () => {
 
-  const todos = [
+  const [tasks,setTasks] = useState("")
+  const [error,setError] = useState("")
 
-  ];
+  const handleChange = (e)=>{
+    setTasks (e.target.value)
+  }
+
+  const handleClick = (e)=>{
+    e.preventDefault()
+
+    if(tasks == ""){
+      toast.error('Please Enter Your Tasks', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+      });
+    }
+    else{
+
+    }
+  }
 
   return (
+    
     <div className="min-h-screen bg-linear-to-r from-[#575656] to-[#062e3f] flex items-center justify-center text-white px-4">
+      <ToastContainer/>
       <div className="bg-linear-to-t from-[#575656] to-[#062e3f] w-300 h-150 rounded-[20px] relative shadow-lg p-10">
 
         <h1 className="text-center text-6xl font-semibold mb-10">
@@ -21,12 +49,14 @@ const HomePage = () => {
 
         <div className="flex justify-center gap-4 mb-10">
           <input
-            type="text"
-            placeholder="Enter a task here"
-            className="border border-gray-300 px-4 py-2 rounded outline-none w-100"
-          />
+              value={tasks}
+              onChange={handleChange}
+              type="text"
+              placeholder="Enter a task here"
+              className="border border-gray-300 px-4 py-2 rounded outline-none w-100"
+/>
 
-          <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold shadow">
+          <button onClick={handleClick} className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold shadow">
             SAVE
           </button>
 
